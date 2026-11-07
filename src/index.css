@@ -1,0 +1,238 @@
+@import "tailwindcss";
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html,
+  body,
+  #root {
+    background-color: #0c0c0c;
+    color: #d7e2ea;
+    font-family: 'Kanit', sans-serif;
+    min-height: 100%;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Hero heading gradient */
+.hero-heading {
+  background: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Living Portrait CSS */
+.hero-portrait-wrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: min(88vw, 62vh, 420px);
+  touch-action: pan-y;
+}
+
+@media (min-width: 640px) {
+  .hero-portrait-wrap {
+    width: min(76vw, 64vh, 480px);
+    top: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-portrait-wrap {
+    width: min(65vw, 66vh, 540px);
+    top: 50%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-portrait-wrap {
+    width: min(46vw, 68vh, 600px);
+    top: 50%;
+  }
+}
+
+.hero-portrait-inner {
+  transition: transform 0.6s ease-in-out;
+  will-change: transform;
+  position: relative;
+}
+
+.hero-portrait-inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+#faceGl {
+  position: absolute;
+  left: -35%;
+  top: -35%;
+  width: 170%;
+  height: 170%;
+  pointer-events: none;
+}
+
+#faceProps {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+#faceFly,
+#faceHand,
+#faceGlasses,
+#faceCoffee,
+#faceButterfly,
+#facePizza,
+#faceCamera {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  transform: translate(-50%, -50%);
+}
+
+#faceFly {
+  width: 6%;
+  fill: #111;
+}
+
+#faceFly .wing {
+  fill: rgba(220, 235, 255, 0.7);
+  transform-origin: 16px 15px;
+  animation: flap 0.05s linear infinite alternate;
+}
+
+#faceFly .wing.r {
+  animation-direction: alternate-reverse;
+}
+
+@keyframes flap {
+  from {
+    transform: rotate(-16deg);
+  }
+  to {
+    transform: rotate(16deg);
+  }
+}
+
+#faceHand {
+  width: 11%;
+  fill: #fff;
+  stroke: #0c0c0c;
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+
+#faceHand .grab {
+  display: none;
+}
+
+#faceHand.shut .open {
+  display: none;
+}
+
+#faceHand.shut .grab {
+  display: block;
+}
+
+#faceGlasses {
+  width: 34%;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.65));
+}
+
+#faceCoffee {
+  width: 14%;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+}
+
+#faceCoffee .steam {
+  animation: steamRise 0.8s ease-in-out infinite alternate;
+}
+#faceCoffee .steam.s2 {
+  animation-delay: 0.25s;
+}
+#faceCoffee .steam.s3 {
+  animation-delay: 0.5s;
+}
+
+@keyframes steamRise {
+  from {
+    transform: translateY(2px);
+    opacity: 0.35;
+  }
+  to {
+    transform: translateY(-3px);
+    opacity: 0.9;
+  }
+}
+
+#faceButterfly {
+  width: 9%;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+}
+
+#faceButterfly .bwing.l {
+  transform-origin: 20px 20px;
+  animation: bflapL 0.14s ease-in-out infinite alternate;
+}
+#faceButterfly .bwing.r {
+  transform-origin: 20px 20px;
+  animation: bflapR 0.14s ease-in-out infinite alternate;
+}
+
+@keyframes bflapL {
+  from { transform: scaleX(1) rotate(-6deg); }
+  to { transform: scaleX(0.35) rotate(8deg); }
+}
+@keyframes bflapR {
+  from { transform: scaleX(1) rotate(6deg); }
+  to { transform: scaleX(0.35) rotate(-8deg); }
+}
+
+#facePizza {
+  width: 13%;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.65));
+}
+
+#faceCamera {
+  width: 13%;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.75));
+}
+
+#faceFlash {
+  position: absolute;
+  inset: -15%;
+  background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0) 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease-out;
+  mix-blend-mode: screen;
+}
+
+/* Contact button monochrome style */
+.contact-btn-glow {
+  background: linear-gradient(135deg, #18181b 0%, #27272a 50%, #09090b 100%);
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.7), 0px 0px 0px 1px rgba(255, 255, 255, 0.25) inset;
+  outline: 1.5px solid rgba(255, 255, 255, 0.85);
+  outline-offset: -3px;
+  transition: all 0.2s ease;
+}
+
+.contact-btn-glow:hover {
+  background: linear-gradient(135deg, #27272a 0%, #3f3f46 50%, #18181b 100%);
+  outline: 2px solid #ffffff;
+  box-shadow: 0px 6px 20px rgba(255, 255, 255, 0.2), 0px 0px 0px 1px rgba(255, 255, 255, 0.6) inset;
+}
