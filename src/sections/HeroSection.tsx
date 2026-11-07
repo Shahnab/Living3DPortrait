@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Settings, Sparkles, Square } from 'lucide-react';
 import { ContactButton } from '../components/ContactButton';
 import { LivingPortrait } from '../components/LivingPortrait';
+import { DEFAULT_CHARACTER_NAME } from '../utils/character';
 
 interface HeroSectionProps {
   characterName: string;
@@ -15,7 +16,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onConceptClick,
   onOpenSettings,
 }) => {
-  const displayName = characterName.trim() || 'MINA';
+  const displayName = characterName.trim() || DEFAULT_CHARACTER_NAME;
   const titleText = `HI, I'M ${displayName.toUpperCase()}`;
 
   // Dynamically calculate font size so ANY name strictly fits in ONE single line
@@ -82,7 +83,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       </div>
 
       {/* 2. Hero Portrait (Living Portrait perfectly centered) */}
-      <LivingPortrait />
+      <LivingPortrait characterName={displayName} />
 
       {/* 3. Bottom bar */}
       <div className="w-full flex justify-between items-end px-5 sm:px-8 md:px-12 pb-6 sm:pb-8 md:pb-10 z-20 gap-4">

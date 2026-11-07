@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-export const LivingPortrait: React.FC = () => {
+export const LivingPortrait: React.FC<{ characterName: string }> = ({ characterName }) => {
   useEffect(() => {
     const win = window as Window & { initLivingPortrait?: () => void };
     if (typeof win.initLivingPortrait === 'function') {
@@ -28,7 +28,7 @@ export const LivingPortrait: React.FC = () => {
         <img
           id="faceFallback"
           src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261031_040619_2f6f349e-a4a7-40db-8e9b-03b6acd8b99a.png&w=1024&q=92"
-          alt="Portrait of Mina"
+          alt={`Portrait of ${characterName}`}
         />
         <canvas id="faceGl" aria-hidden="true" />
         <div id="faceProps" aria-hidden="true">

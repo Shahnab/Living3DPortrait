@@ -4,6 +4,7 @@ import { ConceptModal } from './components/ConceptModal';
 import { SettingsModal } from './components/SettingsModal';
 import { ExpressionMap, LAYOUT_KEY } from './utils/expressionSynthesizer';
 import { loadImage } from './utils/faceIsolation';
+import { DEFAULT_CHARACTER_NAME } from './utils/character';
 
 declare global {
   interface Window {
@@ -15,7 +16,7 @@ declare global {
 
 export default function App() {
   const [characterName, setCharacterName] = useState<string>(() => {
-    return localStorage.getItem('character_name') || 'Mina';
+    return localStorage.getItem('character_name') || DEFAULT_CHARACTER_NAME;
   });
   const [isConceptOpen, setIsConceptOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -55,12 +56,12 @@ export default function App() {
     }
   };
 
-  // Reset character to default Mina
+  // Reset character to the default portrait
   const handleResetDefault = () => {
     if (typeof window.resetToDefaultMina === 'function') {
       window.resetToDefaultMina();
     }
-    handleUpdateCharacterName('Mina');
+    handleUpdateCharacterName(DEFAULT_CHARACTER_NAME);
   };
 
   return (

@@ -28,6 +28,7 @@ import {
   ExpressionMap,
 } from '../utils/expressionSynthesizer';
 import { PROVIDER_NAMES, type ImageProvider } from '../utils/aiCharacterPack';
+import { DEFAULT_CHARACTER_NAME } from '../utils/character';
 
 // Latest OpenAI image models (Image API, /v1/images/edits). Sunburst favours precise edits, Flare is faster.
 const DEFAULT_OPENAI_MODEL = 'gpt-image-2.6-sunburst';
@@ -52,7 +53,7 @@ const PROCESSING_STAGES = [
   { threshold: 15, label: 'Synthesizing Master 3D Floating Head (Zero Neck/Shoulders, Exact Identity)' },
   { threshold: 45, label: 'Isolating the head & registering it as the master frame' },
   { threshold: 56, label: 'Generating 16 far + 16 near gaze directions and 4-step blinks (consistent with the master head)' },
-  { threshold: 72, label: 'Generating ~36 Mina-style reactions: laugh, shock, wink, yawn, bubblegum...' },
+  { threshold: 72, label: 'Generating ~36 reactions: laugh, shock, wink, yawn, bubblegum...' },
   { threshold: 92, label: 'Locking hair & outline to the master head and mounting into the live portrait' },
 ];
 
@@ -206,7 +207,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         referenceImageUrl: portrait.framedReferenceUrl,
         style: selectedStyle,
         skinColorDescription: portrait.skinColorDescription,
-        characterName: nameInput.trim() || 'Mina',
+        characterName: nameInput.trim() || DEFAULT_CHARACTER_NAME,
         targetSkinRgb: portrait.skinRgb,
         onNote: (note) => {
           partialNote = note;
@@ -301,15 +302,15 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     onClose();
   };
 
-  const handleResetToMina = () => {
-    setNameInput('Mina');
+  const handleResetToDefault = () => {
+    setNameInput(DEFAULT_CHARACTER_NAME);
     setGeneratedPack(null);
     setGenerationError(null);
     setGenerationNote(null);
     onResetDefault();
   };
 
-  const previewName = nameInput.trim() ? nameInput.trim().toUpperCase() : 'MINA';
+  const previewName = (nameInput.trim() || DEFAULT_CHARACTER_NAME).toUpperCase();
 
   return (
     <AnimatePresence>
@@ -484,7 +485,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     type="text"
                     value={nameInput}
                     onChange={(e) => handleNameChange(e.target.value)}
-                    placeholder="Type any name (e.g. Shahnab, Mina...)"
+                    placeholder="Type any name (e.g. AI Character)"
                     maxLength={28}
                     className="w-full px-3 py-2 rounded-xl bg-black border border-zinc-700 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white transition-colors"
                   />
@@ -574,7 +575,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     <Upload className="w-8 h-8 text-zinc-400 mx-auto mb-2" />
                     <p className="text-sm font-semibold text-white">Click or drag a photo of yourself here</p>
                     <p className="text-xs text-zinc-400 mt-1">
-                      Synthesizes a floating 3D head avatar (like Mina) + 72 gaze, blink &amp; emotion frames
+                      Synthesizes a floating 3D head avatar + 72 gaze, blink &amp; emotion frames
                     </p>
                   </div>
                 ) : (
@@ -756,10 +757,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <button
                   type="button"
-                  onClick={handleResetToMina}
+                  onClick={handleResetToDefault}
                   className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-zinc-300 hover:text-white text-xs font-semibold transition-colors cursor-pointer"
                 >
-                  Reset to Mina (Default)
+                  Reset to AI Character (Default)
                 </button>
 
                 <div className="flex flex-wrap items-center justify-end gap-2 w-full sm:w-auto">
